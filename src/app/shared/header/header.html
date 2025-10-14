@@ -1,0 +1,47 @@
+<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="/">Smart</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+        <ul class="navbar-nav flex-grow-1">
+          <li class="nav-item">
+            <a class="nav-link text-dark" routerLink="/">Homepage</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" routerLink="/about-us">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" routerLink="/contact-us">Contact Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" routerLink="/our-team">Our Team</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" routerLink="/products">Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-dark" routerLink="/privacy">Privacy</a>
+          </li>
+            <ng-container *ngIf="authService.isLoggedIn$ | async; else loggedOut">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" (click)="logout()">Logout</a>
+                </li>
+            </ng-container>
+            <ng-template #loggedOut>
+            <li class="nav-item">
+                <a class="nav-link text-dark" routerLink="/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" routerLink="/register">Register</a>
+            </li>
+            </ng-template>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

@@ -15,15 +15,18 @@
           "options": {
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
+
+            "assets": [            
+              "src/favicon.ico",
+              "src/assets"
             ],
             "styles": [
-              "src/styles.css"
-            ]
+            "node_modules/bootstrap/dist/css/bootstrap.min.css",
+            "src/styles.css"
+          ],
+          "scripts": [
+            "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+          ]
           },
           "configurations": {
             "production": {
@@ -81,5 +84,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "7e3b0fb9-3bb8-4edd-b442-2f5339e29f20"
   }
 }

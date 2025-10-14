@@ -1,0 +1,19 @@
+
+<div class="account-container">
+    <div class="account-box">
+        <h2 class="text-center mb-4">Verify Email</h2>
+         <form [formGroup]="verifyEmailForm" (ngSubmit)="submit()">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label  class="form-label">Email</label>
+                <input formControlName="email" class="form-control" />
+                <small *ngIf="verifyEmailForm.get('email')?.touched && verifyEmailForm.get('email')?.invalid" class="text-danger">Email is required</small>
+            </div>
+
+             <button type="submit" class="btn btn-success w-100 p-2">Verify</button>
+            <div class="text-center">
+               <a routerLink="/" class="text-decoration-none mt-3">Back</a>
+            </div>
+        </form>
+    </div>
+</div>
