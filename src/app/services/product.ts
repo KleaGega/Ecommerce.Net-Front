@@ -10,13 +10,30 @@ export class ProductService {
   product!: Product;
   constructor(private http: HttpClient) {}
 
-  getAllProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.apiUrl}/Products`);
-  }
+getAllProducts(): Observable<Product[]> {
+  const token = localStorage.getItem('access_token');
+
+  const headers = {
+    Authorization: `Bearer ${token}`
+  };
+
+  return this.http.get<Product[]>(`${this.apiUrl}/Products`, { headers });
+}
+
   getProductDetails(id:number):Observable<Product>{
-    return this.http.get<Product>(`${this.apiUrl}/Details?id=${id}`);
+    const token = localStorage.getItem('access_token');
+
+  const headers = {
+    Authorization: `Bearer ${token}`
+  };
+    return this.http.get<Product>(`${this.apiUrl}/Details?id=${id}`,{headers});
   }
   createProduct(product: Product, imageFile?: File): Observable<Product> {
+  const token = localStorage.getItem('access_token');
+
+  const headers = {
+    Authorization: `Bearer ${token}`
+  };
   const formData = new FormData();
   formData.append('Name', product.name);
   formData.append('Price', product.price.toString());
@@ -27,7 +44,7 @@ export class ProductService {
     formData.append('ImageFile', imageFile, imageFile.name);
   }
 
-  return this.http.post<Product>(`${this.apiUrl}/Create`, formData);
+  return this.http.post<Product>(`${this.apiUrl}/Create`, formData, {headers});
 }
 
   
