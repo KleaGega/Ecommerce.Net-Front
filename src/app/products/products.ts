@@ -5,23 +5,27 @@ import { ProductService } from '../services/product';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink,RouterModule } from '@angular/router';
+import { Product } from '../../models/product.models';
+import { Auth } from '../services/auth';
+import { NgIf } from '@angular/common';
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [ReactiveFormsModule,CommonModule,RouterLink,RouterModule],
+  imports: [NgIf,ReactiveFormsModule,CommonModule,RouterLink,RouterModule],
   templateUrl: './products.html',
   styleUrl: './products.css'
 })
 export class Products implements OnInit {
-  products: any[]=[];
+  products: Product[]=[];
    constructor(
     private router: Router,
-    private homeService:ProductService
+    private productService:ProductService,
+    public authService: Auth
   ) {
     
   }
   ngOnInit(): void {
-   this.homeService.getAllProducts().subscribe({
+   this.productService.getAllProducts().subscribe({
       next: (products) => (this.products = products),
       error: (err) => console.error('Error fetching products:', err)
     });

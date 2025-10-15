@@ -6,7 +6,8 @@ import { RouterLink, RouterModule } from '@angular/router';
   selector: 'app-header',
   templateUrl: './header.html',
   standalone: true,
-  imports: [NgIf,RouterLink,RouterModule,CommonModule],  
+  imports: [NgIf,RouterLink,RouterModule,CommonModule],
+  styleUrl:'./header.css',  
 })
 export class Header {
   constructor(public authService: Auth) {}

@@ -1,1 +1,46 @@
-<p>products-create works!</p>
+<div class="container">
+<h2>Create Product</h2>
+
+<form (ngSubmit)="onSubmit()" enctype="multipart/form-data" class="d-flex " style="flex-direction:column; gap: 10px;">
+  <div class="form-group">
+    <label>Name:</label>
+    <input type="text" class="form-control" [(ngModel)]="product.name" name="name" required />
+  </div>
+
+  <div class="form-group">
+    <label>Price:</label>
+    <input type="number" class="form-control" [(ngModel)]="product.price" name="price" required />
+  </div>
+
+  <div class="form-group">
+    <label>Description:</label>
+    <input type="text" class="form-control" [(ngModel)]="product.description" name="description" required />
+  </div>
+
+  <div class="form-group">
+    <label>Status:</label>
+    <select class="form-control" [(ngModel)]="product.status" name="status" required>
+      <option value="" disabled selected>Select status</option>
+      <option value="Pending">Pending</option>
+      <option value="Available">Available</option>
+      <option value="Sold">Sold</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Product Image:</label>
+    <input type="file" class="form-control" (change)="onFileSelected($event)" />
+  </div>
+
+  <div *ngIf="selectedFile" class="mb-3">
+    <p>Image Preview:</p>
+    <img [src]="selectedFile" alt="Image Preview" width="200" />
+  </div>
+
+  <button type="submit" class="btn btn-primary" style="width: 15%;">Create Product</button>
+</form>
+
+<div>
+   <a href="/products">Back to List</a>
+</div>
+</div>

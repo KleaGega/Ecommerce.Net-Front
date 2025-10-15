@@ -5,10 +5,11 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule } from '@angular/common';
 
 @Component({
-   selector: 'app-change-password',
+  selector: 'app-change-password',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './change-password.html'
+  templateUrl: './change-password.html',
+  styleUrl:'./change-password.css',
 })
 export class ChangePassword implements OnInit {
   changePasswordForm: FormGroup;

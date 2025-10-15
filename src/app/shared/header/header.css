@@ -1,0 +1,11 @@
+.nav-link {
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.nav-link:hover {
+  transform: scale(1.05);
+}
+
+.navbar-nav .nav-item {
+  margin-right: 10px;
+}
