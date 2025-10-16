@@ -3,18 +3,25 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Auth } from '../services/auth';
-import { RouterLink,RouterModule } from '@angular/router';
+import { RouterLink, RouterModule } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule,CommonModule,RouterLink,RouterModule],
+  standalone: true, 
+  imports: [ReactiveFormsModule, CommonModule, RouterLink, RouterModule],
   templateUrl: './login.html',
-  styleUrl: './login.css'
+  styleUrls: ['./login.css'] 
 })
-
 export class Login {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: Auth, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: Auth,
+    private router: Router,
+    private toastr: ToastrService 
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
@@ -26,9 +33,16 @@ export class Login {
     if (this.loginForm.valid) {
       const data = this.loginForm.value;
       this.authService.login(data).subscribe({
-        next: () => this.router.navigate(['/']),
-        error: err => alert(err.error?.message || 'Login failed')
+        next: () => {
+          this.toastr.success('Logged in successfully!', 'Success'); 
+          this.router.navigate(['/']);
+        },
+        error: err => {
+          this.toastr.error(err.error?.message || 'Login failed', 'Error'); 
+        }
       });
+    } else {
+      this.toastr.warning('Please fill in valid email and password', 'Warning'); 
     }
   }
 }

@@ -11,6 +11,8 @@ import { ChangePassword } from './change-password/change-password';
 import { VerifyEmail } from './verify-email/verify-email';
 import { ProductsDetails } from './products-details/products-details';
 import { ProductsCreate } from './products-create/products-create';
+import { ProductsEdit } from './products-edit/products-edit';
+import { ProductsDelete } from './products-delete/products-delete';
 
 export const routes = [
   { path: '', component: Home },
@@ -26,5 +28,7 @@ export const routes = [
   {path:'verify-email',component:VerifyEmail},
   {path:'product-detail/:id',component:ProductsDetails},
   {path:'create-product',component:ProductsCreate},
+  {path:'edit-product/:id',component:ProductsEdit},
+  {path:'delete-product/:id',component:ProductsDelete},
   { path: '**', redirectTo: '' } 
 ];

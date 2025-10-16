@@ -1,15 +1,19 @@
 import { Component } from '@angular/core';
 import { ProductService } from '../services/product';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Product } from '../../models/product.models';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { importProvidersFrom } from '@angular/core';
 
 @Component({
   selector: 'app-products-create',
   templateUrl: './products-create.html',
   styleUrls: ['./products-create.css'],
-  imports:[CommonModule,FormsModule]
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterLink],
+ 
 })
 export class ProductsCreate {
 
@@ -23,32 +27,33 @@ export class ProductsCreate {
   };
 
   selectedFile?: File;
+  imagePreview: string = '';
 
   constructor(
     private router: Router,
-    private productService: ProductService
+    private productService: ProductService,
+    private toastr: ToastrService,
   ) {}
 
-  // Handle file selection
   onFileSelected(event: any): void {
     const file: File = event.target.files[0];
-    if (file) {
-      this.selectedFile = file;
-    }
+    if (!file) return;
+    this.selectedFile = file;
+    this.imagePreview = URL.createObjectURL(file);
   }
 
-  // Handle form submission
   onSubmit(): void {
     this.productService.createProduct(this.product, this.selectedFile).subscribe({
       next: (data) => {
         console.log('Product created:', data);
-        alert('Product created successfully!');
-        this.router.navigate(['/products']); // Redirect to product list or change route
+        this.toastr.success('Product created successfully!', 'Success');
+        this.router.navigate(['/products']);
       },
       error: (err) => {
         console.error('Error creating product:', err);
-        alert('Failed to create product.');
+        this.toastr.error('Failed to create product.', 'Error');
       }
     });
   }
+
 }

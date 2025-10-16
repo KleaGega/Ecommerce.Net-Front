@@ -32,15 +32,18 @@
     <input type="file" class="form-control" (change)="onFileSelected($event)" />
   </div>
 
-  <div *ngIf="selectedFile" class="mb-3">
+  <div *ngIf="imagePreview" class="mb-3">
     <p>Image Preview:</p>
-    <img [src]="selectedFile" alt="Image Preview" width="200" />
+    <img [src]=" imagePreview" alt="Image Preview" width="200" />
   </div>
-
-  <button type="submit" class="btn btn-primary" style="width: 15%;">Create Product</button>
+<div class="d-flex" style="gap: 5px;"> 
+  <button type="submit" class="btn btn-primary" style="width: 15%;" id="createProduct">Create Product</button> 
+  <a routerLink="/products" class="btn btn-secondary">Back to List</a>
+  </div>
 </form>
 
-<div>
-   <a href="/products">Back to List</a>
-</div>
+
+
+
+
 </div>
