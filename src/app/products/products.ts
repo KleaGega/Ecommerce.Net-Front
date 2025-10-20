@@ -17,6 +17,7 @@ import { NgIf } from '@angular/common';
 })
 export class Products implements OnInit {
   products: Product[]=[];
+    role: string = ''; 
    constructor(
     private router: Router,
     private productService:ProductService,
@@ -29,10 +30,26 @@ export class Products implements OnInit {
       next: (products) => (this.products = products),
       error: (err) => console.error('Error fetching products:', err)
     });
+    this.getUserRole()
   }
   getImageUrl(imagePath:string): string{
     if(!imagePath) return 'assets/images/logo.jpg';
     if(imagePath.startsWith('http')) return imagePath;
     return  `http://localhost:5245${imagePath}`;
   }
+
+ getUserRole() {
+    this.authService.userRole().subscribe({
+      next: (data) => {
+        console.log("User info:", data);
+        console.log("Email:", data.userName);
+        this.role = data.roles[0];
+        console.log("Role:", this.role);
+      },
+      error: (err) => {
+        console.error('Error fetching user role:', err);
+      }
+    });
+  }
+
 }

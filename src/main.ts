@@ -13,11 +13,11 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(
       BrowserAnimationsModule, 
       ToastrModule.forRoot({
-        positionClass: 'toast-top-center',  // ✅ top of page
-        timeOut: 3000,                     // 3 seconds
-        progressBar: true,                 // show progress bar
-        closeButton: true,                 // show close button
-        newestOnTop: true,                 // newest toast appears on top
+        positionClass: 'toast-top-center',  
+        timeOut: 1000,                 
+        progressBar: true,                 
+        closeButton: true,                 
+        newestOnTop: true,                
         preventDuplicates: true
       }),
       HttpClientModule        

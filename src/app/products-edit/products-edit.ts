@@ -19,6 +19,7 @@ export class ProductsEdit implements OnInit {
       name: '',
       price: 0,
       description: '',
+      categoryId: 0,
       status: '',
       imagePath: ''
     };

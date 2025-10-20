@@ -13,6 +13,10 @@ import { ProductsDetails } from './products-details/products-details';
 import { ProductsCreate } from './products-create/products-create';
 import { ProductsEdit } from './products-edit/products-edit';
 import { ProductsDelete } from './products-delete/products-delete';
+import { Categories } from './categories/categories';
+import { CategoryCreate } from './category-create/category-create';
+import { CategoryEdit } from './category-edit/category-edit';
+import { CategoryDelete } from './category-delete/category-delete';
 
 export const routes = [
   { path: '', component: Home },
@@ -30,5 +34,9 @@ export const routes = [
   {path:'create-product',component:ProductsCreate},
   {path:'edit-product/:id',component:ProductsEdit},
   {path:'delete-product/:id',component:ProductsDelete},
+  {path:'categories',component: Categories},
+  {path:'create-category', component: CategoryCreate},
+  {path: 'edit-category/:id', component:CategoryEdit},
+  {path:'delete-category/:id',component:CategoryDelete},
   { path: '**', redirectTo: '' } 
 ];

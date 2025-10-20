@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable,  } from 'rxjs';
-import { Product } from '../../models/product.models';
+import { Product ,Category} from '../../models/product.models';
 @Injectable({
   providedIn: 'root'
 })
@@ -58,6 +58,7 @@ getAllProducts(): Observable<Product[]> {
       formData.append('Price', product.price.toString());
       formData.append('Description', product.description);
       formData.append('Status', product.status);
+      formData.append('CategoryId', product.categoryId.toString());
 
   if (imageFile) {
     formData.append('ImageFile', imageFile, imageFile.name);
@@ -87,6 +88,8 @@ deleteProduct(id:number){
   return this.http.delete<void>(`${this.apiUrl}/Delete/${id}`, {headers})
 
 }
-
+getAllCategories(): Observable<Category[]> {
+  return this.http.get<Category[]>(`${this.apiUrl}/GetAll`);
+}
   
 }

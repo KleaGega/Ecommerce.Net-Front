@@ -19,8 +19,10 @@ export class ProductsDelete implements OnInit {
       name: '',
       price: 0,
       description: '',
+      categoryId: 0,
       status: '',
-      imagePath: ''
+      imagePath: '',
+
     };
   
       selectedFile?: File;

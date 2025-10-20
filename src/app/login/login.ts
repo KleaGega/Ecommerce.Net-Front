@@ -35,6 +35,7 @@ export class Login {
       this.authService.login(data).subscribe({
         next: () => {
           this.toastr.success('Logged in successfully!', 'Success'); 
+          this.getUserRole()
           this.router.navigate(['/']);
         },
         error: err => {
@@ -44,5 +45,15 @@ export class Login {
     } else {
       this.toastr.warning('Please fill in valid email and password', 'Warning'); 
     }
+  }
+
+  getUserRole(){
+    this.authService.userRole().subscribe({
+      next: (data)=>{
+        console.log("User info", data);
+        console.log("Email:",data.userName);
+        console.log("Role:",data.roles[0]);
+      }
+    })
   }
 }

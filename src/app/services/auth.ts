@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, BehaviorSubject, tap } from 'rxjs';
-
+import { WhoAmIResponse } from '../../models/account.models';
 @Injectable({ providedIn: 'root' })
 export class Auth {
   private apiUrl = 'http://localhost:5245/api/Account';
@@ -57,5 +57,14 @@ export class Auth {
 
   register(data: any) {
     return this.http.post(`${this.apiUrl}/Register`, data);
+  }
+
+  userRole(): Observable<WhoAmIResponse>{
+      const token = localStorage.getItem('access_token');
+      const headers = {
+        Authorization: `Bearer ${token}`
+      };
+
+    return this.http.get<WhoAmIResponse>(`${this.apiUrl}/WhoAmI`,{headers})
   }
 }

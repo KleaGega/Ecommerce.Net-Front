@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  
+<head>
+    <title>All categories</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="d-flex justify-content-between " style="padding: 15px;">
+            <h1 style="color: green;">My categories</h1> 
+            <a routerLink ="/create-category" class="btn btn-success btn-sm" style="height:40px" *ngIf="role == 'Admin' " >Create new one category</a>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">All categories</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover table-bordered">
+                    <thead class="thead-dark">
+                        <tr >
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col" *ngIf="role == 'Admin'">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let category of categories">
+                            <th scope="row">{{category.id}}</th>
+                            <td>{{category.name}}</td>
+                            <td>{{category.description}}</td>
+                            <td>
+                                <div class="d-flex " style="gap: 5px;">
+                                    <a [routerLink]="['/edit-category', category.id]" class="btn btn-warning btn-sm" *ngIf="role == 'Admin'">Edit category</a>
+
+                                    <a [routerLink]="['/delete-category', category.id]" class="btn btn-danger btn-sm" *ngIf="role == 'Admin' " > Delete category</a>
+                                </div>    
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

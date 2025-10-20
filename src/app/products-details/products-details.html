@@ -11,7 +11,6 @@
           style="max-height: 250px; object-fit: cover;"
         />
       </div>
-
       <div class="col-md-8">
         <dl class="row">
           <dt class="col-sm-3">Name:</dt>
@@ -22,14 +21,19 @@
 
           <dt class="col-sm-3">Description:</dt>
           <dd class="col-sm-9">{{ product.description }}</dd>
+          <dt class="col-sm-3">Category:</dt>
+          <dd class="col-sm-9">{{ product.categoryName }}</dd>
 
           <dt class="col-sm-3">Status:</dt>
           <dd class="col-sm-9">
-            <span
-              class="badge"
-              [class.bg-success]="product.status === 'Available'"
-              [class.bg-danger]="product.status === 'Unavailable'"
-            >
+           <span
+                class="badge"
+                [ngClass]="{
+                    'bg-success': product.status === 'Available',
+                    'bg-danger': product.status === 'Sold',
+                    'bg-warning': product.status === 'Pending'
+                }"
+                >
               {{ product.status }}
             </span>
           </dd>
@@ -37,14 +41,13 @@
 
         <div class="mt-3">
           <a routerLink="/products" class="btn btn-secondary btn-sm">← Back to List</a>
-          <a [routerLink]="['/edit-product', product.id]" class="btn btn-primary btn-sm ms-2">Edit</a>
+          <a [routerLink]="['/edit-product', product.id]" class="btn btn-primary btn-sm ms-2" *ngIf="role == 'Admin' ">Edit</a>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Show loading or error states -->
 <div *ngIf="!product" class="text-center text-muted mt-5">
   <div class="spinner-border text-secondary" role="status"></div>
   <p class="mt-2">Loading product details...</p>

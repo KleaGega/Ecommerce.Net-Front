@@ -1,6 +1,10 @@
 <div class="d-flex justify-content-between align-items-center">
     <h1 class="mb-4">Our Products</h1>
-    <a routerLink ="/create-product" class="btn btn-primary btn-sm" style="height:40px" *ngIf="authService.isLoggedIn$ | async" >Create new one product</a>
+    <div class="d-flex" style="gap:5px">
+        <a routerLink ="/create-product" class="btn btn-success btn-sm" style="height:40px" *ngIf="role == 'Admin' " >Create new one product</a>
+        <a routerLink ="/categories" class="btn btn-secondary btn-sm" style="height:40px" *ngIf="role == 'Admin' " >Manage categories</a>
+    </div>
+    
 </div>
 
 
@@ -15,14 +19,32 @@
         />
         <div class="card-body">
             <h5 class="card-title">{{ product.name }}</h5>
+
             <p class="card-text">{{ product.description }}</p>
+
             <p class="card-text">
-            <strong>Price:</strong> ${{ product.price }}
+                <strong>Category:</strong> {{ product.categoryName || 'N/A' }}
             </p>
+
             <p class="card-text">
-            <strong>Status:</strong> {{ product.status }}
+                <strong>Price:</strong> ${{ product.price }}
             </p>
-        </div>       
+
+            <p class="card-text d-flex" style="gap: 3px;">
+                <strong>Status:</strong>
+                <span
+                class="badge"
+                [ngClass]="{
+                    'bg-success': product.status === 'Available',
+                    'bg-danger': product.status === 'Sold',
+                    'bg-warning': product.status === 'Pending'
+                }"
+                >
+                {{ product.status }}
+                </span>
+            </p>
+            </div>
+
             <div class="card-footer text-center">
                 <a
                 [routerLink]="['/product-detail', product.id]"
