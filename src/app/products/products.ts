@@ -8,6 +8,8 @@ import { RouterLink,RouterModule } from '@angular/router';
 import { Product } from '../../models/product.models';
 import { Auth } from '../services/auth';
 import { NgIf } from '@angular/common';
+import { CartService } from '../services/cart';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-products',
   standalone: true,
@@ -17,11 +19,14 @@ import { NgIf } from '@angular/common';
 })
 export class Products implements OnInit {
   products: Product[]=[];
-    role: string = ''; 
+  role: string = ''; 
+  userId : string = '';
    constructor(
     private router: Router,
     private productService:ProductService,
-    public authService: Auth
+    public authService: Auth,
+    private cartService: CartService,
+    private toastr : ToastrService
   ) {
     
   }
@@ -30,7 +35,9 @@ export class Products implements OnInit {
       next: (products) => (this.products = products),
       error: (err) => console.error('Error fetching products:', err)
     });
-    this.getUserRole()
+    this.userId = localStorage.getItem('loggedUserId') ?? '';
+    console.log("User id is", this.userId);
+    this.getUserRole();
   }
   getImageUrl(imagePath:string): string{
     if(!imagePath) return 'assets/images/logo.jpg';
@@ -48,6 +55,17 @@ export class Products implements OnInit {
       },
       error: (err) => {
         console.error('Error fetching user role:', err);
+      }
+    });
+  }
+
+  addToCart(productId: number): void {
+    this.cartService.addToCart( this.userId,productId,1).subscribe({
+       next: () => {
+         this.toastr.success('Product added to cart successfully!', 'Success');
+       },
+      error: (err) => {
+        this.toastr.error('Failed to add product to cart.', 'Error');
       }
     });
   }

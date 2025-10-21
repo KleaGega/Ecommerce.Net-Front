@@ -17,6 +17,9 @@ import { Categories } from './categories/categories';
 import { CategoryCreate } from './category-create/category-create';
 import { CategoryEdit } from './category-edit/category-edit';
 import { CategoryDelete } from './category-delete/category-delete';
+import { Cart } from './cart/cart';
+import { Component } from '@angular/core';
+import { Profile } from './profile/profile';
 
 export const routes = [
   { path: '', component: Home },
@@ -38,5 +41,7 @@ export const routes = [
   {path:'create-category', component: CategoryCreate},
   {path: 'edit-category/:id', component:CategoryEdit},
   {path:'delete-category/:id',component:CategoryDelete},
+  {path: 'cart', component:Cart},
+  {path: 'profile', component:Profile},
   { path: '**', redirectTo: '' } 
 ];

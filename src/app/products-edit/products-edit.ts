@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../services/product';
-import { Product } from '../../models/product.models';
+import { Category, Product } from '../../models/product.models';
 import { RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { CategoryService } from '../services/category';
 @Component({
   selector: 'app-products-edit',
   imports:[CommonModule,FormsModule,RouterLink],
@@ -23,7 +24,12 @@ export class ProductsEdit implements OnInit {
       status: '',
       imagePath: ''
     };
-  
+    category: Category = {
+      id:0,
+      name: '',
+      description: '',
+    };
+    
       selectedFile?: File;
       imagePreview: string = '';
 
@@ -31,7 +37,7 @@ export class ProductsEdit implements OnInit {
     private router: Router,
     private productService: ProductService,
     private route: ActivatedRoute,
-    private toastr : ToastrService
+    private toastr : ToastrService,
   ){
     
   }
@@ -40,7 +46,10 @@ export class ProductsEdit implements OnInit {
     if(id){
       this.loadProduct(id);
     }
-    
+    //  this.productService.getAllCategories().subscribe({
+    // //   next: (data) => (this.category = data),
+    // //   error: (err) => console.error('Error fetching products:', err)
+    // // });
   }
   loadProduct(id:number):void{
     this.productService.getProductById(id).subscribe({

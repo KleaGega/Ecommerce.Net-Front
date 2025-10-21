@@ -24,6 +24,8 @@ export class Register {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
+      city: ['', Validators.required],
+      phoneNumber2: ['', [Validators.required, Validators.pattern(/^\+?\d{10,15}$/)]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', Validators.required]
     }, { validator: this.passwordMatchValidator });

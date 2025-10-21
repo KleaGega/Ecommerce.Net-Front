@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, BehaviorSubject, tap } from 'rxjs';
 import { WhoAmIResponse } from '../../models/account.models';
+import { User } from '../../models/user.model';
 @Injectable({ providedIn: 'root' })
 export class Auth {
   private apiUrl = 'http://localhost:5245/api/Account';
@@ -19,6 +20,7 @@ export class Auth {
       tap((res: any) => {
         this.loggedIn.next(true);
         localStorage.setItem('access_token', res.token);
+        localStorage.setItem('loggedUserId',res.userId);
         localStorage.setItem('refresh_token',res.refreshToken);
         localStorage.setItem('expires_at',(Date_now+res.expiresIn*1000).toString());
       })
@@ -29,6 +31,7 @@ export class Auth {
     this.http.post(`${this.apiUrl}/Logout`, {}).subscribe(() => {
       this.loggedIn.next(false); 
       localStorage.removeItem('access_token');
+       localStorage.removeItem('loggedUserId');
       localStorage.removeItem('refresh_token');
       localStorage.removeItem('expires_at');
       this.router.navigate(['/login']);
@@ -66,5 +69,9 @@ export class Auth {
       };
 
     return this.http.get<WhoAmIResponse>(`${this.apiUrl}/WhoAmI`,{headers})
+  }
+
+  getUserInfo(userId:string):Observable<User>{
+    return this.http.get<User>(`${this.apiUrl}/userInfoById/${userId}`,)
   }
 }
