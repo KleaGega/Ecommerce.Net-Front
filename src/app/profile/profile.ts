@@ -30,4 +30,9 @@ export class Profile implements OnInit {
       console.warn('No loggedUserId found in localStorage');
     }
   }
+
+  logout() {
+    this.authService.logout();
+  }
+  
 }

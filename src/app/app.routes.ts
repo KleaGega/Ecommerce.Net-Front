@@ -1,4 +1,3 @@
-import { Routes } from '@angular/router';
 import { Home } from './home/home';
 import { AboutUs } from './about-us/about-us';
 import { ContactUs } from './contact-us/contact-us';
@@ -18,7 +17,6 @@ import { CategoryCreate } from './category-create/category-create';
 import { CategoryEdit } from './category-edit/category-edit';
 import { CategoryDelete } from './category-delete/category-delete';
 import { Cart } from './cart/cart';
-import { Component } from '@angular/core';
 import { Profile } from './profile/profile';
 
 export const routes = [

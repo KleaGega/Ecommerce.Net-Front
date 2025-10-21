@@ -74,4 +74,7 @@ export class Auth {
   getUserInfo(userId:string):Observable<User>{
     return this.http.get<User>(`${this.apiUrl}/userInfoById/${userId}`,)
   }
+  isAuthenticated(): boolean {
+  return !!localStorage.getItem('token'); 
+}
 }

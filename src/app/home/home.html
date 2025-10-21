@@ -4,44 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modern Product Store</title>
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+   
 </head>
 <body>
-    <section class="hero" id="home" style="border-radius: 10px;">
+    <section class="hero" id="home">
         <h1>Discover Amazing Products</h1>
         <p>Quality products that transform your everyday life</p>
-       <a routerLink="/products" class="btn cta-button">Shop Now</a> 
+        <a href="/products" class="btn cta-button">Shop Now</a>
     </section>
 
     <section class="featured-products" id="products">
-        <h2 class="section-title">Featured Products</h2>
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="mb-4">Our Latest Products</h1>
+  
+        </div>
+
         <div class="row">
-        <div class="col-md-4 mb-4 p-2" *ngFor="let product of products" >
-            <div class="card h-100 shadow-sm p-1">
-            <img
-                [src]="getImageUrl(product.imagePath)"
-                class="card-img-top"
-                alt="{{ product.name }}"
-                style="height:200px; object-fit:cover;"
-            />
-            <div class="card-body">
-                <h5 class="card-title">{{ product.name }}</h5>
-                <p class="card-text">{{ product.description }}</p>
-                <p class="card-text">
-                <strong>Price:</strong> ${{ product.price }}
-                </p>
-                <p class="card-text">
-                <strong>Status:</strong> {{ product.status }}
-                </p>
-            </div>
-                <div class="card-footer text-center">
-                    <a
-                    [routerLink]="['/product-detail', product.id]"
-                    class="btn btn-primary btn-sm"
-                    >
-                    Details
-                    </a>
-                </div>
+            <div class="col-md-4 mb-4" *ngFor="let product of products">
+                <div class="card h-100 shadow-sm">
+                    <img
+                        [src]="getImageUrl(product.imagePath)"
+                        class="card-img-top"
+                        alt="{{ product.name }}"
+                        style="height:200px; object-fit:cover;"
+                    />
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+
+                        <p class="card-text">{{ product.description }}</p>
+
+                        <p class="card-text">
+                            <strong>Category:</strong> {{ product.categoryName || 'N/A' }}
+                        </p>
+
+                        <p class="card-text">
+                            <strong>Price:</strong> ${{ product.price }}
+                        </p>
+
+                        <p class="card-text d-flex" style="gap: 3px;">
+                            <strong>Status:</strong>
+                            <span
+                            class="badge"
+                            [ngClass]="{
+                                'bg-success': product.status === 'Available',
+                                'bg-danger': product.status === 'Sold',
+                                'bg-warning': product.status === 'Pending'
+                            }"
+                            >
+                            {{ product.status }}
+                            </span>
+                        </p>
+                    </div>
+
+                    <div class="card-footer text-center d-flex justify-content-center" style="gap: 5px;">
+                        <a
+                        [routerLink]="['/product-detail', product.id]"
+                        class="btn btn-primary btn-sm"
+                        >
+                        Details
+                        </a>
+                    
+                       
+                    </div>
                 </div>
             </div>
         </div>
@@ -52,24 +77,32 @@
             <h2 class="section-title">Why Choose Us</h2>
             <div class="features-grid">
                 <div class="feature-item">
-                    <div class="feature-icon">🚚</div>
-                    <h3>Free Shipping</h3>
-                    <p>On all orders over $50</p>
+                    <div>
+                        <div class="feature-icon">🚚</div>
+                        <h3>Free Shipping</h3>
+                        <p>On all orders over $50</p>
+                    </div>
                 </div>
                 <div class="feature-item">
-                    <div class="feature-icon">🔒</div>
-                    <h3>Secure Payment</h3>
-                    <p>100% secure transactions</p>
+                    <div>
+                        <div class="feature-icon">🔒</div>
+                        <h3>Secure Payment</h3>
+                        <p>100% secure transactions</p>
+                    </div>
                 </div>
                 <div class="feature-item">
-                    <div class="feature-icon">↩️</div>
-                    <h3>Easy Returns</h3>
-                    <p>30-day return policy</p>
+                    <div>
+                        <div class="feature-icon">↩️</div>
+                        <h3>Easy Returns</h3>
+                        <p>30-day return policy</p>
+                    </div>
                 </div>
                 <div class="feature-item">
-                    <div class="feature-icon">💬</div>
-                    <h3>24/7 Support</h3>
-                    <p>Always here to help</p>
+                    <div>
+                        <div class="feature-icon">💬</div>
+                        <h3>24/7 Support</h3>
+                        <p>Always here to help</p>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,59 +1,91 @@
-<header>
-  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-    <div class="container-fluid">
-      <a class="navbar-brand" routerLink="/">Smart</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
-              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<header class="header-wrapper">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand brand-logo" routerLink="/">
+        <i class="bi bi-lightning-charge-fill me-2"></i>
+        <span>Smart</span>
+      </a>
+
+      <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between align-items-center">
-        <ul class="navbar-nav flex-grow-1 align-items-center">
-          <li class="nav-item ">
-            <a class="nav-link text-dark" routerLink="/">Homepage</a>
+
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav flex-grow-1 align-items-center ms-4">
+          <li class="nav-item">
+            <a class="nav-link nav-link-custom" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+              <i class="bi bi-house-door me-1"></i>
+              Home
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" routerLink="/about-us">About Us</a>
+            <a class="nav-link nav-link-custom" routerLink="/about-us" routerLinkActive="active">
+              <i class="bi bi-info-circle me-1"></i>
+              About Us
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" routerLink="/contact-us">Contact Us</a>
+            <a class="nav-link nav-link-custom" routerLink="/contact-us" routerLinkActive="active">
+              <i class="bi bi-envelope me-1"></i>
+              Contact
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" routerLink="/our-team">Our Team</a>
+            <a class="nav-link nav-link-custom" routerLink="/our-team" routerLinkActive="active">
+              <i class="bi bi-people me-1"></i>
+              Our Team
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" routerLink="/products">Products</a>
+            <a class="nav-link nav-link-custom" routerLink="/products" routerLinkActive="active">
+              <i class="bi bi-box-seam me-1"></i>
+              Products
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-dark" routerLink="/privacy">Privacy</a>
+            <a class="nav-link nav-link-custom" routerLink="/privacy" routerLinkActive="active">
+              <i class="bi bi-shield-check me-1"></i>
+              Privacy
+            </a>
           </li>
-            <li class="nav-item position-relative me-3">
-                <a href="/cart" class="nav-link text-dark position-relative">
-                    <i class="bi bi-cart fs-4"></i>
-                    <span
-                    class="position-absolute  start-100 translate-middle badge rounded-pill bg-danger"
-                    style="font-size: 0.65rem;"
-                    >
-                   {{cartLength}}
-                    </span>
-                </a>
-            </li>
         </ul>
-        <ul class="navbar-nav d-flex align-items-center mb-0" style="gap: 10px;">
+
+        <ul class="navbar-nav align-items-center user-actions">
           <ng-container *ngIf="authService.isLoggedIn$ | async; else loggedOut">
-            <li class="nav-item">
-              <a class="nav-link text-dark fw-semibold" (click)="logout()" style="cursor: pointer;">Logout</a>
+            <li class="nav-item me-3">
+              <a routerLink="/cart" class="nav-link cart-link position-relative">
+                <i class="bi bi-cart3"></i>
+                <span class="cart-badge" *ngIf="cartLength > 0">{{cartLength}}</span>
+              </a>
             </li>
-             <li class="nav-item">
-              <a class="nav-link text-dark fw-semibold" routerLink="/profile" style="cursor: pointer;"><i class="bi bi-person-circle " style="font-size: 20px;"></i></a>
+
+            <li class="nav-item me-3">
+              <a class="nav-link profile-link" routerLink="/profile" title="Profile">
+                <i class="bi bi-person-circle"></i>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <button class="btn btn-logout" (click)="logout()">
+                <i class="bi bi-box-arrow-right me-2"></i>
+                Logout
+              </button>
             </li>
           </ng-container>
          
           <ng-template #loggedOut>   
-            <li class="nav-item">
-              <a class="nav-link text-dark fw-semibold" routerLink="/login">Login</a>
+            <li class="nav-item me-2">
+              <a class="btn btn-login" routerLink="/login">
+                <i class="bi bi-box-arrow-in-right me-2"></i>
+                Login
+              </a>
             </li>
+
             <li class="nav-item">
-              <a class="nav-link text-dark fw-semibold" routerLink="/register">Register</a>
+              <a class="btn btn-register" routerLink="/register">
+                <i class="bi bi-person-plus me-2"></i>
+                Register
+              </a>
             </li>
           </ng-template>
         </ul>
@@ -61,3 +93,4 @@
     </div>
   </nav>
 </header>
+

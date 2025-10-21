@@ -1,44 +1,154 @@
 <div class="account-container">
   <div class="account-box">
-    <h2 class="text-center mb-4">Register Page</h2>
-    <form [formGroup]="registerForm" (ngSubmit)="submit()">
-      <div class="mb-3">
-        <label>Name</label>
-        <input formControlName="name" class="form-control">
-        <small *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid" class="text-danger">Name is required</small>
+    <!-- Header Section -->
+    <div class="text-center mb-4">
+      <div class="register-icon mb-3">
+        <i class="bi bi-person-plus-fill"></i>
       </div>
-      <div class="mb-3">
-        <label>Email</label>
-        <input formControlName="email" class="form-control">
-        <small *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid" class="text-danger">Valid email is required</small>
-      </div>
-      <div class="mb-3">
-        <label>City</label>
-        <input formControlName="city" class="form-control">
-        <small *ngIf="registerForm.get('city')?.touched && registerForm.get('city')?.invalid" class="text-danger">Valid city is required</small>
-      </div>
-      <div class="mb-3">
-        <label>Phone number</label>
-       <input formControlName="phoneNumber2" class="form-control">
-      <small *ngIf="registerForm.get('phoneNumber2')?.touched && registerForm.get('phoneNumber2')?.invalid" class="text-danger">Valid phone number is required</small>
-
-      </div>
-      <div class="mb-3">
-        <label>Password</label>
-        <input type="password" formControlName="password" class="form-control">
-        <small *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid" class="text-danger">Password required (min 8 chars)</small>
-      </div>
-      <div class="mb-3">
-        <label>Confirm Password</label>
-        <input type="password" formControlName="confirmPassword" class="form-control">
-        <small *ngIf="registerForm.hasError('mismatch')" class="text-danger">Passwords do not match</small>
-      </div>
-      <button type="submit" class="btn btn-success w-100 p-2">Register</button>
-    </form>
-
-    <p class="text-center mt-2">Already have an account? <a routerLink="/login" class="text-decoration-none">Login</a></p>
-    <div class="text-center">
-      <a routerLink="/" class="text-decoration-none mt-3">Back</a>
+      <h2 class="fw-bold mb-2" style="color: #2c3e50;">Create Account</h2>
+      <p class="text-muted">Join us today and get started</p>
     </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="submit()">
+      <!-- Name Field -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold" style="color: #495057;">
+          <i class="bi bi-person me-2 text-success"></i>Full Name
+        </label>
+        <input 
+          formControlName="name" 
+          class="form-control form-control-lg"
+          placeholder="Enter your full name"
+          style="border-radius: 12px; border: 2px solid #e0e0e0; transition: all 0.3s ease;"
+          [ngClass]="{'is-invalid': registerForm.get('name')?.touched && registerForm.get('name')?.invalid, 'is-valid': registerForm.get('name')?.valid && registerForm.get('name')?.touched}"
+        >
+        <small *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid" class="text-danger d-flex align-items-center mt-2">
+          <i class="bi bi-x-circle-fill me-1"></i>
+          Name is required
+        </small>
+      </div>
+
+      <!-- Email Field -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold" style="color: #495057;">
+          <i class="bi bi-envelope me-2 text-success"></i>Email Address
+        </label>
+        <input 
+          formControlName="email" 
+          class="form-control form-control-lg"
+          placeholder="Enter your email"
+          style="border-radius: 12px; border: 2px solid #e0e0e0; transition: all 0.3s ease;"
+          [ngClass]="{'is-invalid': registerForm.get('email')?.touched && registerForm.get('email')?.invalid, 'is-valid': registerForm.get('email')?.valid && registerForm.get('email')?.touched}"
+        >
+        <small *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid" class="text-danger d-flex align-items-center mt-2">
+          <i class="bi bi-x-circle-fill me-1"></i>
+          Valid email is required
+        </small>
+      </div>
+
+      <!-- Two Column Layout for City and Phone -->
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-semibold" style="color: #495057;">
+            <i class="bi bi-geo-alt me-2 text-success"></i>City
+          </label>
+          <input 
+            formControlName="city" 
+            class="form-control form-control-lg"
+            placeholder="Your city"
+            style="border-radius: 12px; border: 2px solid #e0e0e0; transition: all 0.3s ease;"
+            [ngClass]="{'is-invalid': registerForm.get('city')?.touched && registerForm.get('city')?.invalid, 'is-valid': registerForm.get('city')?.valid && registerForm.get('city')?.touched}"
+          >
+          <small *ngIf="registerForm.get('city')?.touched && registerForm.get('city')?.invalid" class="text-danger d-flex align-items-center mt-2">
+            <i class="bi bi-x-circle-fill me-1"></i>
+            City is required
+          </small>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label class="form-label fw-semibold" style="color: #495057;">
+            <i class="bi bi-telephone me-2 text-success"></i>Phone Number
+          </label>
+          <input 
+            formControlName="phoneNumber2" 
+            class="form-control form-control-lg"
+            placeholder="Your phone"
+            style="border-radius: 12px; border: 2px solid #e0e0e0; transition: all 0.3s ease;"
+            [ngClass]="{'is-invalid': registerForm.get('phoneNumber2')?.touched && registerForm.get('phoneNumber2')?.invalid, 'is-valid': registerForm.get('phoneNumber2')?.valid && registerForm.get('phoneNumber2')?.touched}"
+          >
+          <small *ngIf="registerForm.get('phoneNumber2')?.touched && registerForm.get('phoneNumber2')?.invalid" class="text-danger d-flex align-items-center mt-2">
+            <i class="bi bi-x-circle-fill me-1"></i>
+            Valid phone is required
+          </small>
+        </div>
+      </div>
+
+      <!-- Password Field -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold" style="color: #495057;">
+          <i class="bi bi-lock me-2 text-success"></i>Password
+        </label>
+        <input 
+          type="password" 
+          formControlName="password" 
+          class="form-control form-control-lg"
+          placeholder="Create a password"
+          style="border-radius: 12px; border: 2px solid #e0e0e0; transition: all 0.3s ease;"
+          [ngClass]="{'is-invalid': registerForm.get('password')?.touched && registerForm.get('password')?.invalid, 'is-valid': registerForm.get('password')?.valid && registerForm.get('password')?.touched}"
+        >
+        <small *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid" class="text-danger d-flex align-items-center mt-2">
+          <i class="bi bi-x-circle-fill me-1"></i>
+          Password required (min 8 chars)
+        </small>
+      </div>
+
+      <!-- Confirm Password Field -->
+      <div class="mb-4">
+        <label class="form-label fw-semibold" style="color: #495057;">
+          <i class="bi bi-shield-check me-2 text-success"></i>Confirm Password
+        </label>
+        <input 
+          type="password" 
+          formControlName="confirmPassword" 
+          class="form-control form-control-lg"
+          placeholder="Confirm your password"
+          style="border-radius: 12px; border: 2px solid #e0e0e0; transition: all 0.3s ease;"
+          [ngClass]="{'is-invalid': registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched, 'is-valid': !registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.valid && registerForm.get('confirmPassword')?.touched}"
+        >
+        <small *ngIf="registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched" class="text-danger d-flex align-items-center mt-2">
+          <i class="bi bi-x-circle-fill me-1"></i>
+          Passwords do not match
+        </small>
+      </div>
+
+      <!-- Register Button -->
+      <button type="submit" class="btn btn-success w-100 py-3 mb-3 fw-bold" style="border-radius: 12px;background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; font-size: 1.1rem; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);">
+        <i class="bi bi-check-circle me-2"></i>Create Account
+      </button>
+
+      <!-- Divider -->
+      <div class="d-flex align-items-center my-4">
+        <hr class="flex-grow-1" style="border-color: #e0e0e0;">
+        <span class="px-3 text-muted small">OR</span>
+        <hr class="flex-grow-1" style="border-color: #e0e0e0;">
+      </div>
+
+      <!-- Login Link -->
+      <p class="text-center mb-3" style="color: #6c757d;">
+        Already have an account? 
+        <a routerLink="/login" class="text-decoration-none fw-semibold" style="color: #11998e;">
+          Login Here
+        </a>
+      </p>
+
+      <!-- Back Link -->
+      <div class="text-center">
+        <a routerLink="/" class="text-decoration-none d-inline-flex align-items-center" style="color: #6c757d; transition: all 0.3s ease;">
+          <i class="bi bi-arrow-left me-2"></i>
+          Back to Home
+        </a>
+      </div>
+    </form>
   </div>
 </div>
+
