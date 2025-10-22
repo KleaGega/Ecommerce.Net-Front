@@ -30,25 +30,25 @@ export class ChangePassword implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.email = this.route.snapshot.queryParamMap.get('email') || '';
-    this.changePasswordForm.patchValue({ email: this.email });
-  }
-
-  submit() {
-    if (this.changePasswordForm.valid) {
-      const data = this.changePasswordForm.getRawValue();
-      this.authService.changePassword(data.email, data.newPassword, data.confirmNewPassword).subscribe({
-        next: () => {
-          this.toastr.success('Password changed successfully!', 'Success'); 
-          this.router.navigate(['/login']);
-        },
-        error: (err) => {
-          this.toastr.error(err.error?.message || 'Something went wrong!', 'Error'); 
-        }
-      });
-    } else {
-      this.toastr.warning('Please fill in all required fields correctly', 'Warning'); 
+    ngOnInit() {
+        this.email = this.route.snapshot.queryParamMap.get('email') || '';
+        this.changePasswordForm.patchValue({ email: this.email });
     }
-  }
+
+    submit() {
+        if (this.changePasswordForm.valid) {
+            const data = this.changePasswordForm.getRawValue();
+            this.authService.changePassword(data.email, data.newPassword, data.confirmNewPassword).subscribe({
+                next: () => {
+                this.toastr.success('Password changed successfully!', 'Success'); 
+                this.router.navigate(['/login']);
+            },
+                error: (err) => {
+                this.toastr.error(err.error?.message || 'Something went wrong!', 'Error'); 
+            }
+        });
+        } else {
+            this.toastr.warning('Please fill in all required fields correctly', 'Warning'); 
+        }
+    }
 }

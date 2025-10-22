@@ -15,24 +15,24 @@ export class Profile implements OnInit {
 
   constructor(private authService: Auth) {}
 
-  ngOnInit(): void {
-    this.userId = localStorage.getItem('loggedUserId') ?? '';
-    if (this.userId) {
-      this.authService.getUserInfo(this.userId).subscribe({
-        next: (user) => {
-          this.user = user;
-        },
-        error: (err) => {
-          console.error('Failed to get user information', err);
+    ngOnInit(): void {
+        this.userId = localStorage.getItem('loggedUserId') ?? '';
+        if (this.userId) {
+            this.authService.getUserInfo(this.userId).subscribe({
+                next: (user) => { 
+                    this.user = user;
+                },
+                error: (err) => {
+                    console.error('Failed to get user information', err);
+                }
+            });
+            } else {
+            console.warn('No loggedUserId found in localStorage');
         }
-      });
-    } else {
-      console.warn('No loggedUserId found in localStorage');
     }
-  }
 
-  logout() {
-    this.authService.logout();
-  }
+    logout() {
+        this.authService.logout();
+    }
   
 }

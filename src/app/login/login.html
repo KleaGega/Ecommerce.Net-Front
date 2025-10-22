@@ -1,6 +1,5 @@
 <div class="account-container">
   <div class="account-box">
-    <!-- Header Section -->
     <div class="text-center mb-4">
       <div class="login-icon mb-3">
         <i class="bi bi-shield-lock-fill"></i>
@@ -10,13 +9,11 @@
     </div>
 
     <form [formGroup]="loginForm" (ngSubmit)="post()">
-      <!-- Error Alert -->
       <div class="alert alert-danger d-flex align-items-center" role="alert" *ngIf="loginForm.invalid && loginForm.touched" style="border-radius: 12px; border-left: 4px solid #dc3545;">
         <i class="bi bi-exclamation-triangle-fill me-2"></i>
         <div>Please correct the errors below.</div>
       </div>
 
-      <!-- Email Field -->
       <div class="mb-3">
         <label class="form-label fw-semibold" style="color: #495057;">
           <i class="bi bi-envelope me-2 text-primary"></i>Email Address
@@ -34,7 +31,6 @@
         </small>
       </div>
 
-      <!-- Password Field -->
       <div class="mb-3">
         <label class="form-label fw-semibold" style="color: #495057;">
           <i class="bi bi-lock me-2 text-primary"></i>Password
@@ -55,7 +51,6 @@
         </small>
       </div>
 
-      <!-- Remember Me & Forgot Password -->
       <div class="d-flex justify-content-between align-items-center mb-4">
         <div class="form-check">
           <input 
@@ -72,19 +67,16 @@
         </a>
       </div>
 
-      <!-- Login Button -->
       <button type="submit" class="btn btn-primary w-100 py-3 mb-3 fw-bold" style="border-radius: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; font-size: 1.1rem; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);">
         <i class="bi bi-box-arrow-in-right me-2"></i>Login
       </button>
 
-      <!-- Divider -->
       <div class="d-flex align-items-center my-4">
         <hr class="flex-grow-1" style="border-color: #e0e0e0;">
         <span class="px-3 text-muted small">OR</span>
         <hr class="flex-grow-1" style="border-color: #e0e0e0;">
       </div>
 
-      <!-- Register Link -->
       <p class="text-center mb-3" style="color: #6c757d;">
         Don't have an account? 
         <a routerLink="/register" class="text-decoration-none fw-semibold" style="color: #667eea;">
@@ -92,7 +84,6 @@
         </a>
       </p>
 
-      <!-- Back Link -->
       <div class="text-center">
         <a routerLink="/" class="text-decoration-none d-inline-flex align-items-center" style="color: #6c757d; transition: all 0.3s ease;">
           <i class="bi bi-arrow-left me-2"></i>

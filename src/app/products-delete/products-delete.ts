@@ -14,7 +14,7 @@ declare var bootstrap: any;
 })
 export class ProductsDelete implements OnInit {
   modal:any
- product: Product = {
+    product: Product = {
       id:0,
       name: '',
       price: 0,
@@ -25,64 +25,58 @@ export class ProductsDelete implements OnInit {
 
     };
   
-      selectedFile?: File;
-      imagePreview: string = '';
-  constructor(
-    private productService: ProductService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private toastr: ToastrService,
-  ){
-
-  }
-  ngOnInit(): void {
-    const modalElement = document.getElementById('exampleModal')
-    this.modal = new bootstrap.Modal(modalElement);
-    const id = Number(this.route.snapshot.paramMap.get('id')) 
-    if(id){
-      this.loadProduct(id);
+    selectedFile?: File;
+    imagePreview: string = '';
+    constructor(
+        private productService: ProductService,
+        private route: ActivatedRoute,
+        private router: Router,
+        private toastr: ToastrService,
+    ){}
+    ngOnInit(): void {
+        const modalElement = document.getElementById('exampleModal')
+        this.modal = new bootstrap.Modal(modalElement);
+        const id = Number(this.route.snapshot.paramMap.get('id')) 
+        if(id){
+            this.loadProduct(id);
+        }
+        
     }
-    
-  }
-      getImageUrl(imagePath:string): string{
-    if(!imagePath) return 'assets/images/logo.jpg';
-    if(imagePath.startsWith('http')) return imagePath;
-    return  `http://localhost:5245${imagePath}`;
-  }
-  loadProduct(id:number):void{
-    this.productService.getProductByIdDelete(id).subscribe({
-      next:(data)=>{
-        this.product = data;
-      }, error:(err) =>{
-        console.error('Error deleting product:', err);
-        this.toastr.error('Failed to delete product.', 'Error');
-      }
-    })
-  }
+    getImageUrl(imagePath:string): string{
+        if(!imagePath) return 'assets/images/logo.jpg';
+        if(imagePath.startsWith('http')) return imagePath;
+        return  `http://localhost:5245${imagePath}`;
+    }
+    loadProduct(id:number):void{
+        this.productService.getProductByIdDelete(id).subscribe({
+        next:(data)=>{
+            this.product = data;
+        }, error:(err) =>{
+            console.error('Error deleting product:', err);
+            this.toastr.error('Failed to delete product.', 'Error');
+        }
+        })
+    }
+    openModal(){
+        this.modal.show()
+    }
+    closeModal( ){
+        this.modal.hide()
+    }
+    confirmDelete() {
+        this.onSubmit();
+        this.modal.hide();
+    }
 
-  openModal(){
-    this.modal.show()
-  }
-  closeModal( ){
-    this.modal.hide()
-  }
-  confirmDelete() {
-    this.onSubmit();
-    this.modal.hide();
-  }
-
-
-  onSubmit ():void{
-    this.productService.deleteProduct(this.product.id).subscribe({
-      next:()=>{
-        this.toastr.success('Product deleted successfully!', 'Success');
-        this.router.navigate(['/products'])
-
-      }, error:(err) =>{
-        console.error('Error deleting product:', err);
-        this.toastr.error('Failed to delete product.', 'Error');
-      }
-    })
-  }
-
+    onSubmit ():void{
+        this.productService.deleteProduct(this.product.id).subscribe({
+        next:()=>{
+            this.toastr.success('Product deleted successfully!', 'Success');
+            this.router.navigate(['/products'])
+        }, error:(err) =>{
+            console.error('Error deleting product:', err);
+            this.toastr.error('Failed to delete product.', 'Error');
+        }
+        })
+    }
 }

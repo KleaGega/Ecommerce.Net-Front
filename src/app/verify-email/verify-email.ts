@@ -14,32 +14,30 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class VerifyEmail {
   verifyEmailForm: FormGroup;
-
-  constructor(
-    private fb: FormBuilder,
-    private authService: Auth,
-    private router: Router,
-    private toastr: ToastrService
-  ) {
-    this.verifyEmailForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-    });
-  }
+    constructor(
+        private fb: FormBuilder,
+        private authService: Auth,
+        private router: Router,
+        private toastr: ToastrService
+    ){
+        this.verifyEmailForm = this.fb.group({email: ['', [Validators.required, Validators.email]],   
+        });
+    }
 
   submit() {
     if (this.verifyEmailForm.valid) {
-      const { email } = this.verifyEmailForm.value;
-      this.authService.verifyEmail(email).subscribe({
-        next: () => {
-          this.toastr.success('Verification email sent!', 'Success'); 
-          this.router.navigate(['/change-password'], { queryParams: { email } });
-        },
-        error: err => {
-          this.toastr.error(err.error?.message || 'Verification failed', 'Error'); 
+        const { email } = this.verifyEmailForm.value;
+            this.authService.verifyEmail(email).subscribe({
+                next: () => {
+                this.toastr.success('Verification email sent!', 'Success'); 
+                this.router.navigate(['/change-password'], { queryParams: { email } });
+                },
+                error: err => {
+                this.toastr.error(err.error?.message || 'Verification failed', 'Error'); 
+                }
+            });
+        } else {
+            this.toastr.warning('Please enter a valid email', 'Warning'); 
         }
-      });
-    } else {
-      this.toastr.warning('Please enter a valid email', 'Warning'); 
     }
-  }
 }

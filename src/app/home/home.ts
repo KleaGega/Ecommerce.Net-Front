@@ -15,18 +15,18 @@ export class Home implements OnInit {
    constructor(
     private router: Router,
     private homeService:HomeService
-  ) {
-    
-  }
-  ngOnInit(): void {
-   this.homeService.getProducts().subscribe({
-      next: (products) => (this.products = products),
-      error: (err) => console.error('Error fetching products:', err)
-    });
-  }
-  getImageUrl(imagePath:string): string{
-    if(!imagePath) return 'assets/images/logo.jpg';
-    if(imagePath.startsWith('http')) return imagePath;
-    return  `http://localhost:5245${imagePath}`;
-  }
+  ) {}
+  
+	ngOnInit(): void {
+	this.homeService.getProducts().subscribe({
+		next: (products) => (this.products = products),
+		error: (err) => console.error('Error fetching products:', err)
+		});
+	}
+	
+	getImageUrl(imagePath:string): string{
+		if(!imagePath) return 'assets/images/logo.jpg';
+		if(imagePath.startsWith('http')) return imagePath;
+		return  `http://localhost:5245${imagePath}`;
+	}
 }

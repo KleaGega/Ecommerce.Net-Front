@@ -27,47 +27,45 @@ export class Products implements OnInit {
     public authService: Auth,
     private cartService: CartService,
     private toastr : ToastrService
-  ) {
-    
-  }
-  ngOnInit(): void {
-   this.productService.getAllProducts().subscribe({
-      next: (products) => (this.products = products),
-      error: (err) => console.error('Error fetching products:', err)
+  ) {}
+    ngOnInit(): void {
+    this.productService.getAllProducts().subscribe({
+        next: (products) => (this.products = products),
+        error: (err) => console.error('Error fetching products:', err)
     });
     this.userId = localStorage.getItem('loggedUserId') ?? '';
     console.log("User id is", this.userId);
     this.getUserRole();
-  }
-  getImageUrl(imagePath:string): string{
-    if(!imagePath) return 'assets/images/logo.jpg';
-    if(imagePath.startsWith('http')) return imagePath;
-    return  `http://localhost:5245${imagePath}`;
-  }
+    }
+    getImageUrl(imagePath:string): string{
+        if(!imagePath) return 'assets/images/logo.jpg';
+        if(imagePath.startsWith('http')) return imagePath;
+        return  `http://localhost:5245${imagePath}`;
+    }
 
- getUserRole() {
-    this.authService.userRole().subscribe({
-      next: (data) => {
-        console.log("User info:", data);
-        console.log("Email:", data.userName);
-        this.role = data.roles[0];
-        console.log("Role:", this.role);
-      },
-      error: (err) => {
-        console.error('Error fetching user role:', err);
-      }
-    });
-  }
+    getUserRole() {
+        this.authService.userRole().subscribe({
+        next: (data) => {
+            console.log("User info:", data);
+            console.log("Email:", data.userName);
+            this.role = data.roles[0];
+            console.log("Role:", this.role);
+        },
+        error: (err) => {
+            console.error('Error fetching user role:', err);
+        }
+        });
+    }
 
-  addToCart(productId: number): void {
-    this.cartService.addToCart( this.userId,productId,1).subscribe({
-       next: () => {
-         this.toastr.success('Product added to cart successfully!', 'Success');
-       },
-      error: (err) => {
-        this.toastr.error('Failed to add product to cart.', 'Error');
-      }
-    });
-  }
+    addToCart(productId: number): void {
+        this.cartService.addToCart( this.userId,productId,1).subscribe({
+        next: () => {
+            this.toastr.success('Product added to cart successfully!', 'Success');
+        },
+        error: (err) => {
+            this.toastr.error('Failed to add product to cart.', 'Error');
+        }
+        });
+    }
 
 }

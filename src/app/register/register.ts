@@ -14,7 +14,6 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class Register {
   registerForm: FormGroup;
-
   constructor(
     private fb: FormBuilder,
     private authService: Auth,
@@ -31,26 +30,24 @@ export class Register {
     }, { validator: this.passwordMatchValidator });
   }
 
-  passwordMatchValidator(form: FormGroup) {
-    return form.get('password')!.value === form.get('confirmPassword')!.value
-      ? null 
-      : { mismatch: true };
-  }
-
-  submit() {
-    if (this.registerForm.valid) {
-      const data = this.registerForm.value;
-      this.authService.register(data).subscribe({
-        next: () => {
-          this.toastr.success('Registered successfully!', 'Success'); 
-          this.router.navigate(['/login']);
-        },
-        error: err => {
-          this.toastr.error(err.error?.message || 'Register failed', 'Error'); 
-        }
-      });
-    } else {
-      this.toastr.warning('Please fill all fields correctly', 'Warning');
+    passwordMatchValidator(form: FormGroup) {
+        return form.get('password')!.value === form.get('confirmPassword')!.value ? null : { mismatch: true };
     }
-  }
+
+    submit() {
+        if (this.registerForm.valid) {
+            const data = this.registerForm.value;
+            this.authService.register(data).subscribe({
+                next: () => {
+                    this.toastr.success('Registered successfully!', 'Success'); 
+                    this.router.navigate(['/login']);
+                },
+                    error: err => {
+                    this.toastr.error(err.error?.message || 'Register failed', 'Error'); 
+                }
+            });
+        } else {
+            this.toastr.warning('Please fill all fields correctly', 'Warning');
+        }
+    }
 }

@@ -15,7 +15,6 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class Login {
   loginForm: FormGroup;
-
   constructor(
     private fb: FormBuilder,
     private authService: Auth,
@@ -29,31 +28,31 @@ export class Login {
     });
   }
 
-  post() {
-    if (this.loginForm.valid) {
-      const data = this.loginForm.value;
-      this.authService.login(data).subscribe({
-        next: () => {
-          this.toastr.success('Logged in successfully!', 'Success'); 
-          this.getUserRole()
-          this.router.navigate(['/']);
-        },
-        error: err => {
-          this.toastr.error(err.error?.message || 'Login failed', 'Error'); 
+    post() {
+        if (this.loginForm.valid) {
+        const data = this.loginForm.value;
+        this.authService.login(data).subscribe({
+            next: () => {
+                this.toastr.success('Logged in successfully!', 'Success'); 
+                this.getUserRole()
+                this.router.navigate(['/']);
+            },
+                error: err => {
+                this.toastr.error(err.error?.message || 'Login failed', 'Error'); 
+            }
+        });
+        } else {
+            this.toastr.warning('Please fill in valid email and password', 'Warning'); 
         }
-      });
-    } else {
-      this.toastr.warning('Please fill in valid email and password', 'Warning'); 
     }
-  }
 
-  getUserRole(){
-    this.authService.userRole().subscribe({
-      next: (data)=>{
-        console.log("User info", data);
-        console.log("Email:",data.userName);
-        console.log("Role:",data.roles[0]);
-      }
-    })
-  }
+    getUserRole(){
+        this.authService.userRole().subscribe({
+            next: (data)=>{
+                console.log("User info", data);
+                console.log("Email:",data.userName);
+                console.log("Role:",data.roles[0]);
+            }
+        })
+    }
 }

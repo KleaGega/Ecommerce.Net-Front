@@ -13,9 +13,7 @@ import { CommonModule } from '@angular/common';
   imports: [RouterOutlet, Header, Footer, ReactiveFormsModule, FormsModule,CommonModule],
   template: `
     <app-header *ngIf="showHeaderFooter"></app-header>
-    <main class = " my-4">
       <router-outlet></router-outlet>
-    </main>
     <app-footer *ngIf="showHeaderFooter"></app-footer>
   `
 })
@@ -24,18 +22,13 @@ export class AppComponent {
 
   constructor(private auth: Auth, private router: Router) {
     this.auth.checkToken();
-
     this.router.events
-  .pipe(filter(event => event instanceof NavigationEnd))
-  .subscribe((event: any) => {
-    const currentUrl = event.urlAfterRedirects;
-    console.log('🔍 Current URL:', currentUrl);
-
-    const hiddenRoutes = ['/login', '/register'];
-
-    this.showHeaderFooter = !hiddenRoutes.some(route => currentUrl.startsWith(route));
-    console.log('👀 Show header/footer:', this.showHeaderFooter);
-  });
+    .pipe(filter(event => event instanceof NavigationEnd))
+    .subscribe((event: any) => {
+      const currentUrl = event.urlAfterRedirects;
+      const hiddenRoutes = ['/login', '/register','/verify-email','/change-password'];
+      this.showHeaderFooter = !hiddenRoutes.some(route => currentUrl.startsWith(route));
+    });
 
   }
 }

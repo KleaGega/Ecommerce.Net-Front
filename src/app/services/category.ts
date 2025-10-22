@@ -11,13 +11,11 @@ export class CategoryService {
   constructor(private http: HttpClient) {}
 
     getAllCategories(): Observable<Category[]> {
-    const token = localStorage.getItem('access_token');
-
-    const headers = {
-        Authorization: `Bearer ${token}`
-    };
-
-    return this.http.get<Category[]>(`${this.apiUrl}/GetAll`, { headers });
+        const token = localStorage.getItem('access_token');
+        const headers = {
+            Authorization: `Bearer ${token}`
+        };
+        return this.http.get<Category[]>(`${this.apiUrl}/GetAll`, { headers });
     }
 
     getCategoryById(id:number):Observable<Category>{
@@ -25,45 +23,31 @@ export class CategoryService {
     }
 
     createCategory(category: Category): Observable<Category> {
-    const token = localStorage.getItem('access_token');
-
-    const headers = {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json'
-    };
-    const formData = new FormData();
-    formData.append('Name', category.name);
-    formData.append('Description', category.description);
-
-    return this.http.post<Category>(
-        `${this.apiUrl}/Create`,
-        JSON.stringify(category), 
-        { headers }
-    );
+        const token = localStorage.getItem('access_token');
+        const headers = {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        };
+        const formData = new FormData();
+            formData.append('Name', category.name);
+            formData.append('Description', category.description);
+        return this.http.post<Category>(`${this.apiUrl}/Create`,JSON.stringify(category), { headers });
     }
-
 
     editCategory(category: Category): Observable<Category> {
-    const token = localStorage.getItem('access_token');
-
-    const headers = {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json'
-    };
-
-    return this.http.put<Category>(
-        `${this.apiUrl}/Edit/${category.id}`, 
-        category, 
-        { headers }
-    );
+        const token = localStorage.getItem('access_token');
+        const headers = {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        };
+        return this.http.put<Category>(`${this.apiUrl}/Edit/${category.id}`, category, { headers });
     }
-
 
     getCategoryByIdDelete(id: number): Observable<Category> {
         const token = localStorage.getItem('access_token');
-            const headers = {
-                Authorization: `Bearer ${token}`
-            };
+        const headers = {
+            Authorization: `Bearer ${token}`
+        };
         return this.http.get<Category>(`${this.apiUrl}/Delete/${id}`, {headers});
     }
 
@@ -74,6 +58,4 @@ export class CategoryService {
         };
         return this.http.delete<void>(`${this.apiUrl}/Delete/${id}`, {headers})
     }
-
-    
-    }
+}

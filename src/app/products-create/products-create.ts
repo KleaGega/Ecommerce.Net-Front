@@ -4,11 +4,10 @@ import { Router, RouterLink } from '@angular/router';
 import { Category, Product } from '../../models/product.models';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { importProvidersFrom } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Auth } from '../services/auth';
 import { CategoryService } from '../services/category';
-import { every } from 'rxjs';
+
 @Component({
   selector: 'app-products-create',
   templateUrl: './products-create.html',
@@ -40,43 +39,40 @@ export class ProductsCreate implements OnInit {
     private authService: Auth,
     private categoryService: CategoryService,
   ) {}
-ngOnInit(): void {
-  this.categoryService.getAllCategories().subscribe({
-    next: res => {
-      this.categories = res;
-      console.log('Fetched categories:', this.categories);
-    },
-    error: err => console.error('Error fetching categories', err)
-  });
-}
-
-
-  onFileSelected(event: any): void {
-    const file: File = event.target.files[0];
-    if (!file) return;
-    this.selectedFile = file;
-    this.imagePreview = URL.createObjectURL(file);
-  }
-
- onSubmit(): void {
-    if (!this.selectedCategoryId) {
-      this.toastr.error('Please select a category', 'Validation Error');
-      return;
+    ngOnInit(): void {
+        this.categoryService.getAllCategories().subscribe({
+            next: res => {
+            this.categories = res;
+            console.log('Fetched categories:', this.categories);
+            },
+            error: err => console.error('Error fetching categories', err)
+        });
     }
 
-    this.product.categoryId = this.selectedCategoryId;
+    onFileSelected(event: any): void {
+        const file: File = event.target.files[0];
+        if (!file) return;
+        this.selectedFile = file;
+        this.imagePreview = URL.createObjectURL(file);
+    }
 
-    this.productService.createProduct(this.product, this.selectedFile).subscribe({
-      next: data => {
-        this.toastr.success('Product created successfully!', 'Success');
-        this.router.navigate(['/products']);
-      },
-      error: err => {
-        console.error('Error creating product:', err);
-        this.toastr.error('Failed to create product.', 'Error');
-      }
-    });
-  }
+    onSubmit(): void {
+        if (!this.selectedCategoryId) {
+            this.toastr.error('Please select a category', 'Validation Error');
+            return;
+        }
 
+        this.product.categoryId = this.selectedCategoryId;
 
+        this.productService.createProduct(this.product, this.selectedFile).subscribe({
+            next: data => {
+                this.toastr.success('Product created successfully!', 'Success');
+                this.router.navigate(['/products']);
+            },
+            error: err => {
+                console.error('Error creating product:', err);
+                this.toastr.error('Failed to create product.', 'Error');
+            }
+        });
+    }
 }

@@ -14,7 +14,8 @@ import { Auth } from '../services/auth';
   templateUrl: './products-details.html',
   styleUrl: './products-details.css'
 })
-    export class ProductsDetails implements OnInit {
+export class ProductsDetails implements OnInit {
+    
     products: Product[]=[];
     product!: Product;
     role!: string;
@@ -22,31 +23,26 @@ import { Auth } from '../services/auth';
         private route: ActivatedRoute,
         private productService:ProductService,
         private authService:Auth
-    ) {
-        
-    }
-
+    ) {}
     ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.productService.getAllProducts().subscribe({
-        next: (products) => (this.products = products),
-        error: (err) => console.error('Error fetching products:', err)
-    });
+        const id = Number(this.route.snapshot.paramMap.get('id'));
+        this.productService.getAllProducts().subscribe({
+            next: (products) => (this.products = products),
+            error: (err) => console.error('Error fetching products:', err)
+        });
 
-    this.productService.getProductDetails(id).subscribe({
-        next:(data)=>(this.product=data),
-        error: (err) => console.error('Error fetching products:', err)
-    })
+        this.productService.getProductDetails(id).subscribe({
+            next:(data)=>(this.product=data),
+            error: (err) => console.error('Error fetching products:', err)
+        })
 
-    this.getUserRole()
-
-    
+        this.getUserRole()
     }
 
     getImageUrl(imagePath:string): string{
         if(!imagePath) return 'assets/images/logo.jpg';
         if(imagePath.startsWith('http')) return imagePath;
-    return  `http://localhost:5245${imagePath}`;
+        return  `http://localhost:5245${imagePath}`;
     }
 
     getUserRole() {

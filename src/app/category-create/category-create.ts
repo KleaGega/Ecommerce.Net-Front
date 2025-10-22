@@ -20,21 +20,18 @@ export class CategoryCreate {
   constructor(
     private categoryService : CategoryService,
     private router : Router,
-
-  ){
-
-  }
-onSubmit(): void {
-  this.categoryService.createCategory(this.category).subscribe({
-    next: (res) => {
-       this.router.navigate(['/categories'])
-      console.log('Response of category is', res)
-      console.log('Category created', res);
-    },
-    error: (err) => {
-      console.error('Error creating category:', err);
+  ){}
+    
+    onSubmit(): void {
+        this.categoryService.createCategory(this.category).subscribe({
+            next: (res) => {
+                this.router.navigate(['/categories'])
+                console.log('Response of category is', res);
+                console.log('Category created', res);
+            },
+            error: (err) => {
+                console.error('Error creating category:', err);
+            }
+        });
     }
-  });
-}
-
 }

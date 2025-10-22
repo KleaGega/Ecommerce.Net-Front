@@ -25,11 +25,11 @@ export class Cart implements OnInit{
     this.userId = localStorage.getItem('loggedUserId') ?? '';
 
     this.cartService.getCart(this.userId).subscribe({
-      next: (data) =>{
-          this.cartItems = data;
-          console.log("Cart Items are",this.cartItems);
-      },error : (err)=>{
-          console.log("Error loading");
+        next: (data) =>{
+            this.cartItems = data;
+            console.log("Cart Items are",this.cartItems);
+        },error : (err)=>{
+            console.log("Error loading");
       }
     })
 
@@ -37,47 +37,44 @@ export class Cart implements OnInit{
     
   }
     getImageUrl(imagePath:string): string{
-    if(!imagePath) return 'assets/images/logo.jpg';
-    if(imagePath.startsWith('http')) return imagePath;
-    return  `http://localhost:5245${imagePath}`;
-  }
-  calcPrice() {
-    return this.cartItems.reduce((acc, prod) => acc+= prod.price * prod.quantity ,0)
-  }
-
-increaseQuantity(item: CartItem) {
-  item.quantity++;
-  this.cartService.updateQuantity(this.userId, item.productId, item.quantity).subscribe();
-}
-
-decreaseQuantity(item: CartItem) {
-  if (item.quantity > 1) {
-    item.quantity--;
-    this.cartService.updateQuantity(this.userId, item.productId, item.quantity).subscribe();
-  } else {
-    this.cartService.removeFromCart(this.userId, item.productId).subscribe(() => {
-      this.cartItems = this.cartItems.filter(i => i.productId !== item.productId);
-    });
-  }
-}
-  updateQuantity(item: CartItem) {
-    if (item.quantity < 1) {
-      this.removeItem(item);
-      return;
+        if(!imagePath) return 'assets/images/logo.jpg';
+        if(imagePath.startsWith('http')) return imagePath;
+        return  `http://localhost:5245${imagePath}`;
     }
-    this.cartService.updateQuantity(this.userId, item.productId, item.quantity).subscribe();
-  }
+    calcPrice() {
+        return this.cartItems.reduce((acc, prod) => acc+= prod.price * prod.quantity ,0)
+    }
 
-  // Remove item completely
-  removeItem(item: CartItem) {
-    this.cartService.removeFromCart(this.userId, item.productId).subscribe({
-      next: () => {
-        this.cartItems = this.cartItems.filter(i => i.productId !== item.productId);
-      },
-      error: (err) => console.error('Failed to remove item', err)
-    });
-  }
+    increaseQuantity(item: CartItem) {
+        item.quantity++;
+        this.cartService.updateQuantity(this.userId, item.productId, item.quantity).subscribe();
+    }
 
-  
+    decreaseQuantity(item: CartItem) {
+        if (item.quantity > 1) {
+            item.quantity --;
+            this.cartService.updateQuantity(this.userId, item.productId, item.quantity).subscribe();
+        } else {
+            this.cartService.removeFromCart(this.userId, item.productId).subscribe(() => {
+            this.cartItems = this.cartItems.filter(i => i.productId !== item.productId);
+            });
+        }
+    }
+    updateQuantity(item: CartItem) {
+        if (item.quantity < 1) {
+            this.removeItem(item);
+            return;
+        }
+            this.cartService.updateQuantity(this.userId, item.productId, item.quantity).subscribe();
+    }
 
+
+    removeItem(item: CartItem) {
+        this.cartService.removeFromCart(this.userId, item.productId).subscribe({
+        next: () => {
+            this.cartItems = this.cartItems.filter(i => i.productId !== item.productId);
+        },
+        error: (err) => console.error('Failed to remove item', err)
+        });
+    }
 }

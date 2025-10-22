@@ -6,7 +6,6 @@ import { ProductService } from '../services/product';
 import { Category, Product } from '../../models/product.models';
 import { RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { CategoryService } from '../services/category';
 @Component({
   selector: 'app-products-edit',
   imports:[CommonModule,FormsModule,RouterLink],
@@ -24,14 +23,15 @@ export class ProductsEdit implements OnInit {
       status: '',
       imagePath: ''
     };
+
     category: Category = {
       id:0,
       name: '',
       description: '',
     };
-    
-      selectedFile?: File;
-      imagePreview: string = '';
+
+    selectedFile?: File;
+    imagePreview: string = '';
 
   constructor (
     private router: Router,
@@ -41,50 +41,48 @@ export class ProductsEdit implements OnInit {
   ){
     
   }
-  ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id')) 
-    if(id){
-      this.loadProduct(id);
-    }
-    //  this.productService.getAllCategories().subscribe({
-    // //   next: (data) => (this.category = data),
-    // //   error: (err) => console.error('Error fetching products:', err)
-    // // });
-  }
-  loadProduct(id:number):void{
-    this.productService.getProductById(id).subscribe({
-      next:(data)=>{
-        this.product=data;
-        if(this.imagePreview){
-          this.imagePreview= `http://localhost:5245`+ this.product.imagePath;
+    ngOnInit(): void {
+        const id = Number(this.route.snapshot.paramMap.get('id')) 
+        if(id){
+        this.loadProduct(id);
         }
-      },
-       error: (err) => {
-        console.error('Error creating product:', err);
-        this.toastr.error('Failed to edit product.', 'Error');
-      } 
+        //  this.productService.getAllCategories().subscribe({
+        // //   next: (data) => (this.category = data),
+        // //   error: (err) => console.error('Error fetching products:', err)
+        // // });
+    }
+    loadProduct(id:number):void{
+        this.productService.getProductById(id).subscribe({
+            next:(data)=>{
+                this.product=data;
+                if(this.imagePreview){
+                this.imagePreview= `http://localhost:5245`+ this.product.imagePath;
+                }
+            },
+            error: (err) => {
+                console.error('Error creating product:', err);
+                this.toastr.error('Failed to edit product.', 'Error');
+            } 
+        })
+    }
+    onFileSelected(event: any): void {
+        const file: File = event.target.files[0];
+        if (!file) return;
+        this.selectedFile = file;
+        this.imagePreview = URL.createObjectURL(file);
+    }
 
-    })
-
-  }
-  onFileSelected(event: any): void {
-    const file: File = event.target.files[0];
-    if (!file) return;
-    this.selectedFile = file;
-    this.imagePreview = URL.createObjectURL(file);
-  }
-
-  onSubmit(){
-    this.productService.editProduct(this.product, this.selectedFile).subscribe({
-      next:(data)=>{
-         console.log('Product edited:', data);
-        this.toastr.success('Product edited successfully!', 'Success');
-        this.router.navigate(['/products']);
-      },
-      error: (err) => {
-        console.error('Error creating product:', err);
-       this.toastr.error('Failed to edit product.', 'Error');
-      } 
-    })
-  }
+    onSubmit(){
+        this.productService.editProduct(this.product, this.selectedFile).subscribe({
+            next:(data)=>{
+                console.log('Product edited:', data);
+                this.toastr.success('Product edited successfully!', 'Success');
+                this.router.navigate(['/products']);
+            },
+            error: (err) => {
+                console.error('Error creating product:', err);
+                this.toastr.error('Failed to edit product.', 'Error');
+            } 
+        })
+    }
 }
