@@ -18,6 +18,8 @@ import { CategoryEdit } from './category-edit/category-edit';
 import { CategoryDelete } from './category-delete/category-delete';
 import { Cart } from './cart/cart';
 import { Profile } from './profile/profile';
+import { OrderDetails } from './order-details/order-details';
+import { Orders } from './orders/orders';
 
 export const routes = [
     { path: '', component: Home },
@@ -40,5 +42,7 @@ export const routes = [
     { path:'delete-category/:id',component:CategoryDelete },
     { path: 'cart', component:Cart },
     { path: 'profile', component:Profile },
+    { path: 'order-details', component: OrderDetails},
+    {path: 'orders', component: Orders},
     { path: '**', redirectTo: '' } 
     ];
