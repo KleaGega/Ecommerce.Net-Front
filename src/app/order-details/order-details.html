@@ -1,6 +1,8 @@
 <div class="container p-4">
-  <h2 class="gradient-text text-center">Order Confirmation</h2>
-
+  <div class="d-flex align-items-center justify-content-between">
+    <h2 class="gradient-text text-center">Order Confirmation</h2>
+    <a routerLink="/orders" class="btn btn-md btn-danger "  *ngIf="role == 'Admin' ">Manage orders</a>
+  </div>
   <section class="gradient-custom">
     <div class="container">
       <div class="row d-flex justify-content-center">

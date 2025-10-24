@@ -17,11 +17,13 @@ export class OrderDetails implements OnInit {
   order : Order ={
     id: 0,
     userId: '',
+    userName:'',
     orderDate: '',
     totalAmount:0,
     status: '',
     items: [],
   }
+  role:string ='';
   user!:User;
   userId: string ='';
   constructor( private orderService: OrderService,
@@ -40,6 +42,13 @@ ngOnInit(): void {
     
   //   ]
   // };
+
+    this.authService.userRole().subscribe({
+    next: (data)=>{
+      this.role = data.roles[0];
+    }
+
+  })
 
 this.orderService.createOrder(this.orderService.userId).subscribe({
   next: (data) => {

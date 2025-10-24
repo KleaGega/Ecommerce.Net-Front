@@ -17,6 +17,15 @@ export class OrderService {
   }
 
   createOrder(userId: string): Observable<Order> {
-    return this.http.post<Order>(this.apiUrl, { userId });
+    return this.http.post<Order>(`${this.apiUrl}`,{ userId });
+  }
+
+  getAllOrders() : Observable<Order [] >{
+    const token = localStorage.getItem('access_token');
+        const headers = {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        };
+    return this.http.get<Order[]>(`${this.apiUrl}`,{ headers });
   }
 }
